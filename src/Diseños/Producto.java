@@ -3,21 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package salsamentaria;
-
+package Diseños;
+    import javax.swing.JOptionPane;
+    import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author DFVAL
  */
 public class Producto extends javax.swing.JFrame {
-
+    DefaultTableModel model = new DefaultTableModel();
     /**
      * Creates new form Producto
      */
     public Producto() {
         initComponents();
-        this.setLocationRelativeTo(null);
-        this.setExtendedState(Login.MAXIMIZED_BOTH);
+        this.setLocationRelativeTo(null);   
+        this.setSize(780, 580);
+        
+        //CREAMOS COLUMNAS DE NUESTRA TABLA
+        model.addColumn("CODIGO");
+        model.addColumn("DESCRIPCION");
+        model.addColumn("TIPO");
+        model.addColumn("CANTIDAD");
+        model.addColumn("VALOR");
+        
+        this.tabladedatos.setModel(model);
     }
 
     /**
@@ -35,16 +45,19 @@ public class Producto extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        txtvalproductos = new javax.swing.JTextField();
-        txtcodproductos = new javax.swing.JTextField();
-        txtdesproductos = new javax.swing.JTextField();
-        txttipoproductos = new javax.swing.JTextField();
-        txtcantproductos = new javax.swing.JTextField();
-        btnagregarproductos = new javax.swing.JButton();
+        txtval = new javax.swing.JTextField();
+        txtcod = new javax.swing.JTextField();
+        txtdes = new javax.swing.JTextField();
+        txttipo = new javax.swing.JTextField();
+        txtcant = new javax.swing.JTextField();
+        btnregistrar = new javax.swing.JButton();
         btnconsultarproductos = new javax.swing.JButton();
         btneliminarproductos = new javax.swing.JButton();
         btnsalir = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabladedatos = new javax.swing.JTable();
+        btnlimpiardatos = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -54,65 +67,75 @@ public class Producto extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("PRODUCTOS");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(200, 30, 130, 22);
+        jLabel2.setBounds(110, 40, 130, 22);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 51, 255));
         jLabel3.setText("VALOR");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(140, 280, 60, 17);
+        jLabel3.setBounds(50, 270, 60, 17);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 255));
         jLabel4.setText("CODIGO");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(130, 100, 73, 17);
+        jLabel4.setBounds(50, 100, 73, 17);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 255));
         jLabel5.setText("DESCRIPCION");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(120, 147, 120, 20);
+        jLabel5.setBounds(30, 150, 120, 20);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 255));
         jLabel6.setText("TIPO");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(140, 200, 52, 15);
+        jLabel6.setBounds(60, 200, 52, 15);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 255));
         jLabel7.setText("CANTIDAD");
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(130, 240, 90, 17);
-        getContentPane().add(txtvalproductos);
-        txtvalproductos.setBounds(260, 270, 160, 30);
-        getContentPane().add(txtcodproductos);
-        txtcodproductos.setBounds(260, 90, 160, 30);
-        getContentPane().add(txtdesproductos);
-        txtdesproductos.setBounds(260, 140, 160, 40);
+        jLabel7.setBounds(40, 230, 90, 17);
+        getContentPane().add(txtval);
+        txtval.setBounds(170, 270, 160, 30);
+        getContentPane().add(txtcod);
+        txtcod.setBounds(170, 100, 160, 30);
+        getContentPane().add(txtdes);
+        txtdes.setBounds(170, 140, 160, 40);
 
-        txttipoproductos.addActionListener(new java.awt.event.ActionListener() {
+        txttipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txttipoproductosActionPerformed(evt);
+                txttipoActionPerformed(evt);
             }
         });
-        getContentPane().add(txttipoproductos);
-        txttipoproductos.setBounds(260, 190, 160, 30);
-        getContentPane().add(txtcantproductos);
-        txtcantproductos.setBounds(260, 230, 160, 30);
+        getContentPane().add(txttipo);
+        txttipo.setBounds(170, 190, 160, 30);
+        getContentPane().add(txtcant);
+        txtcant.setBounds(170, 230, 160, 30);
 
-        btnagregarproductos.setText("AGREGAR");
-        getContentPane().add(btnagregarproductos);
-        btnagregarproductos.setBounds(60, 333, 90, 30);
+        btnregistrar.setText("REGISTRAR");
+        btnregistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnregistrarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnregistrar);
+        btnregistrar.setBounds(370, 140, 110, 30);
 
         btnconsultarproductos.setText("CONSULTAR");
         getContentPane().add(btnconsultarproductos);
-        btnconsultarproductos.setBounds(210, 330, 100, 30);
+        btnconsultarproductos.setBounds(510, 140, 120, 30);
 
         btneliminarproductos.setText("ELIMINAR");
+        btneliminarproductos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btneliminarproductosMouseClicked(evt);
+            }
+        });
         getContentPane().add(btneliminarproductos);
-        btneliminarproductos.setBounds(360, 330, 100, 30);
+        btneliminarproductos.setBounds(650, 140, 110, 30);
 
         btnsalir.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnsalir.setText("SALIR");
@@ -122,7 +145,7 @@ public class Producto extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnsalir);
-        btnsalir.setBounds(30, 403, 80, 30);
+        btnsalir.setBounds(250, 490, 80, 30);
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButton2.setText("MENU PRINCIPAL");
@@ -132,18 +155,44 @@ public class Producto extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2);
-        jButton2.setBounds(350, 403, 130, 30);
+        jButton2.setBounds(480, 490, 130, 30);
+
+        tabladedatos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tabladedatos);
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(40, 320, 690, 140);
+
+        btnlimpiardatos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnlimpiardatos.setText("LIMPIAR DATOS");
+        btnlimpiardatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnlimpiardatosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnlimpiardatos);
+        btnlimpiardatos.setBounds(490, 220, 130, 30);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/org-fondo-madera-negro.jpg"))); // NOI18N
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 490, 440);
+        jLabel1.setBounds(0, 0, 810, 540);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txttipoproductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttipoproductosActionPerformed
+    private void txttipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttipoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txttipoproductosActionPerformed
+    }//GEN-LAST:event_txttipoActionPerformed
 
     private void btnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalirActionPerformed
         System.exit(WIDTH);
@@ -154,6 +203,34 @@ public class Producto extends javax.swing.JFrame {
            MN .setVisible(true);
            dispose();
     }//GEN-LAST:event_jButton2MouseClicked
+
+    private void btnregistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistrarActionPerformed
+         String []registrar = new String[6];
+      registrar[0]=txtcod.getText();
+      registrar[1]=txtdes.getText();
+      registrar[2]=txttipo.getText();
+      registrar[3]=txtcant.getText();
+      registrar[3]=txtval.getText();
+  
+      model.addRow(registrar);
+    }//GEN-LAST:event_btnregistrarActionPerformed
+
+    private void btnlimpiardatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlimpiardatosActionPerformed
+        txtcod.setText("");
+        txtdes.setText("");
+        txttipo.setText("");
+        txtcant.setText("");
+        txtval.setText("");
+    }//GEN-LAST:event_btnlimpiardatosActionPerformed
+
+    private void btneliminarproductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btneliminarproductosMouseClicked
+        int eli=tabladedatos.getSelectedRowCount();
+       if(eli>=0){
+           model.removeRow(eli);
+       }else{
+           JOptionPane.showMessageDialog(null,"No Hay Datos Que Eliminar");
+       }
+    }//GEN-LAST:event_btneliminarproductosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -191,9 +268,10 @@ public class Producto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnagregarproductos;
     private javax.swing.JButton btnconsultarproductos;
     private javax.swing.JButton btneliminarproductos;
+    private javax.swing.JButton btnlimpiardatos;
+    private javax.swing.JButton btnregistrar;
     private javax.swing.JButton btnsalir;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -203,10 +281,12 @@ public class Producto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JTextField txtcantproductos;
-    private javax.swing.JTextField txtcodproductos;
-    private javax.swing.JTextField txtdesproductos;
-    private javax.swing.JTextField txttipoproductos;
-    private javax.swing.JTextField txtvalproductos;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tabladedatos;
+    private javax.swing.JTextField txtcant;
+    private javax.swing.JTextField txtcod;
+    private javax.swing.JTextField txtdes;
+    private javax.swing.JTextField txttipo;
+    private javax.swing.JTextField txtval;
     // End of variables declaration//GEN-END:variables
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package salsamentaria;
+package Diseños;
 
 /**
  *
@@ -16,8 +16,8 @@ public class MENU extends javax.swing.JFrame {
      */
     public MENU() {
         initComponents();
-        this.setLocationRelativeTo(null);
-        this.setExtendedState(Login.MAXIMIZED_BOTH);
+        this.setLocationRelativeTo(null);   
+        this.setSize(500, 350);
     }
 
     /**
@@ -121,7 +121,7 @@ public class MENU extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/org-fondo-madera-negro.jpg"))); // NOI18N
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(0, 0, 490, 320);
+        jLabel2.setBounds(10, 0, 490, 320);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

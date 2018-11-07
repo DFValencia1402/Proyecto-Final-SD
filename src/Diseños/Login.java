@@ -1,5 +1,5 @@
 
-package salsamentaria;
+package Diseños;
 
 import javax.swing.JOptionPane;
 
@@ -11,8 +11,9 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
-        this.setLocationRelativeTo(null);
-        this.setExtendedState(Login.MAXIMIZED_BOTH);
+        this.setLocationRelativeTo(null);   
+        this.setSize(550, 400);          
+        
     }
 
     /**

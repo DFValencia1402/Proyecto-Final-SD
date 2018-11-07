@@ -1,0 +1,10 @@
+module Pedidos{
+    interface Pedidos{
+        boolean insertarEmpleado(in long idpedidos, in long idclientes, in wstring nombre, in wstring direccion, in wstring telefono);
+        boolean actualizarEmpleado(in long idpedidos, in long idclientes, in wstring nombre, in wstring direccion, in wstring telefono);
+        boolean eliminarEmpleado(in long cedula);
+        wstring consultarEmpleado(in long cedula);
+
+        oneway void shoutdown();
+    };
+};

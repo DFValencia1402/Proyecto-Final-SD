@@ -3,21 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package salsamentaria;
-
+package Diseños;
+   import javax.swing.JOptionPane;
+    import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author DFVAL
  */
 public class Proveedor extends javax.swing.JFrame {
-
+   DefaultTableModel model = new DefaultTableModel();
     /**
      * Creates new form Proveedor
      */
     public Proveedor() {
         initComponents();
-        this.setLocationRelativeTo(null);
-        this.setExtendedState(Login.MAXIMIZED_BOTH);
+        this.setLocationRelativeTo(null);   
+        this.setSize(800, 580);
+        
+        //CREAMOS COLUMNAS DE NUESTRA TABLA
+        model.addColumn("NIT");
+        model.addColumn("NOMBRE");
+        model.addColumn("APELLIDOS");
+        model.addColumn("DIRECCION");
+        model.addColumn("TELEFONO");
+        
+        this.tabladedatos.setModel(model);
     }
 
     /**
@@ -36,16 +46,19 @@ public class Proveedor extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        txttelproveedor = new javax.swing.JTextField();
-        txtnitproveedor = new javax.swing.JTextField();
-        txtnomproveedor = new javax.swing.JTextField();
-        txtapeproveedor = new javax.swing.JTextField();
-        txtdirproveedor = new javax.swing.JTextField();
-        btnagregarproveedor = new javax.swing.JButton();
+        txttel = new javax.swing.JTextField();
+        txtnit = new javax.swing.JTextField();
+        txtnom = new javax.swing.JTextField();
+        txtape = new javax.swing.JTextField();
+        txtdir = new javax.swing.JTextField();
+        btnregistrar = new javax.swing.JButton();
         btnconsultarproveedor = new javax.swing.JButton();
         btneliminarproveedor = new javax.swing.JButton();
         btnsalir = new javax.swing.JButton();
         btnmenuprincipal = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabladedatos = new javax.swing.JTable();
+        btnlimpiardatos = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/org-fondo-madera-negro.jpg"))); // NOI18N
@@ -57,65 +70,80 @@ public class Proveedor extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("PROVEEDOR");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(180, 30, 130, 22);
+        jLabel2.setBounds(110, 50, 130, 22);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 51, 255));
         jLabel3.setText("TELEFONO");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(110, 270, 90, 17);
+        jLabel3.setBounds(30, 270, 90, 17);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 255));
         jLabel4.setText("NIT");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(130, 110, 73, 17);
+        jLabel4.setBounds(50, 110, 73, 17);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 255));
         jLabel5.setText("NOMBRE");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(110, 150, 75, 17);
+        jLabel5.setBounds(40, 150, 75, 17);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 255));
         jLabel6.setText("APELLIDOS");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(110, 190, 90, 17);
+        jLabel6.setBounds(30, 190, 90, 17);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 255));
         jLabel7.setText("DIRECCION");
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(110, 230, 90, 17);
-        getContentPane().add(txttelproveedor);
-        txttelproveedor.setBounds(230, 260, 160, 30);
-        getContentPane().add(txtnitproveedor);
-        txtnitproveedor.setBounds(230, 100, 160, 30);
-        getContentPane().add(txtnomproveedor);
-        txtnomproveedor.setBounds(230, 140, 160, 30);
+        jLabel7.setBounds(30, 230, 90, 17);
+        getContentPane().add(txttel);
+        txttel.setBounds(150, 260, 160, 30);
+        getContentPane().add(txtnit);
+        txtnit.setBounds(150, 100, 160, 30);
+        getContentPane().add(txtnom);
+        txtnom.setBounds(150, 140, 160, 30);
 
-        txtapeproveedor.addActionListener(new java.awt.event.ActionListener() {
+        txtape.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtapeproveedorActionPerformed(evt);
+                txtapeActionPerformed(evt);
             }
         });
-        getContentPane().add(txtapeproveedor);
-        txtapeproveedor.setBounds(230, 180, 160, 30);
-        getContentPane().add(txtdirproveedor);
-        txtdirproveedor.setBounds(230, 220, 160, 30);
+        getContentPane().add(txtape);
+        txtape.setBounds(150, 180, 160, 30);
+        getContentPane().add(txtdir);
+        txtdir.setBounds(150, 220, 160, 30);
 
-        btnagregarproveedor.setText("AGREGAR");
-        getContentPane().add(btnagregarproveedor);
-        btnagregarproveedor.setBounds(50, 340, 90, 30);
+        btnregistrar.setText("REGISTRAR");
+        btnregistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnregistrarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnregistrar);
+        btnregistrar.setBounds(350, 150, 100, 30);
 
         btnconsultarproveedor.setText("CONSULTAR");
         getContentPane().add(btnconsultarproveedor);
-        btnconsultarproveedor.setBounds(190, 340, 100, 30);
+        btnconsultarproveedor.setBounds(480, 150, 110, 30);
 
         btneliminarproveedor.setText("ELIMINAR");
+        btneliminarproveedor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btneliminarproveedorMouseClicked(evt);
+            }
+        });
+        btneliminarproveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneliminarproveedorActionPerformed(evt);
+            }
+        });
         getContentPane().add(btneliminarproveedor);
-        btneliminarproveedor.setBounds(330, 340, 90, 30);
+        btneliminarproveedor.setBounds(610, 150, 110, 30);
 
         btnsalir.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnsalir.setText("SALIR");
@@ -125,7 +153,7 @@ public class Proveedor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnsalir);
-        btnsalir.setBounds(30, 423, 90, 30);
+        btnsalir.setBounds(240, 500, 90, 30);
 
         btnmenuprincipal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnmenuprincipal.setText("MENU PRINCIPAL");
@@ -135,18 +163,44 @@ public class Proveedor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnmenuprincipal);
-        btnmenuprincipal.setBounds(310, 423, 130, 30);
+        btnmenuprincipal.setBounds(440, 500, 130, 30);
+
+        tabladedatos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tabladedatos);
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(50, 330, 680, 150);
+
+        btnlimpiardatos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnlimpiardatos.setText("LIMPIAR DATOS");
+        btnlimpiardatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnlimpiardatosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnlimpiardatos);
+        btnlimpiardatos.setBounds(460, 220, 140, 30);
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/org-fondo-madera-negro.jpg"))); // NOI18N
         getContentPane().add(jLabel8);
-        jLabel8.setBounds(0, 0, 460, 470);
+        jLabel8.setBounds(0, 0, 780, 550);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtapeproveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtapeproveedorActionPerformed
+    private void txtapeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtapeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtapeproveedorActionPerformed
+    }//GEN-LAST:event_txtapeActionPerformed
 
     private void btnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalirActionPerformed
        System.exit(WIDTH);
@@ -157,6 +211,38 @@ public class Proveedor extends javax.swing.JFrame {
            MN .setVisible(true);
            dispose();
     }//GEN-LAST:event_btnmenuprincipalMouseClicked
+
+    private void btneliminarproveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarproveedorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btneliminarproveedorActionPerformed
+
+    private void btnregistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistrarActionPerformed
+        String []registrar = new String[6];
+      registrar[0]=txtnit.getText();
+      registrar[1]=txtnom.getText();
+      registrar[2]=txtape.getText();
+      registrar[3]=txtdir.getText();
+      registrar[3]=txttel.getText();
+  
+      model.addRow(registrar);
+    }//GEN-LAST:event_btnregistrarActionPerformed
+
+    private void btnlimpiardatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlimpiardatosActionPerformed
+        txtnit.setText("");
+        txtnom.setText("");
+        txtape.setText("");
+        txtdir.setText("");
+        txttel.setText("");
+    }//GEN-LAST:event_btnlimpiardatosActionPerformed
+
+    private void btneliminarproveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btneliminarproveedorMouseClicked
+        int eli=tabladedatos.getSelectedRowCount();
+       if(eli>=0){
+           model.removeRow(eli);
+       }else{
+           JOptionPane.showMessageDialog(null,"No Hay Datos Que Eliminar");
+       }
+    }//GEN-LAST:event_btneliminarproveedorMouseClicked
 
     /**
      * @param args the command line arguments
@@ -194,10 +280,11 @@ public class Proveedor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnagregarproveedor;
     private javax.swing.JButton btnconsultarproveedor;
     private javax.swing.JButton btneliminarproveedor;
+    private javax.swing.JButton btnlimpiardatos;
     private javax.swing.JButton btnmenuprincipal;
+    private javax.swing.JButton btnregistrar;
     private javax.swing.JButton btnsalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -207,10 +294,12 @@ public class Proveedor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JTextField txtapeproveedor;
-    private javax.swing.JTextField txtdirproveedor;
-    private javax.swing.JTextField txtnitproveedor;
-    private javax.swing.JTextField txtnomproveedor;
-    private javax.swing.JTextField txttelproveedor;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tabladedatos;
+    private javax.swing.JTextField txtape;
+    private javax.swing.JTextField txtdir;
+    private javax.swing.JTextField txtnit;
+    private javax.swing.JTextField txtnom;
+    private javax.swing.JTextField txttel;
     // End of variables declaration//GEN-END:variables
 }

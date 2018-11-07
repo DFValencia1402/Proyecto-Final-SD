@@ -1,0 +1,10 @@
+module Empleados{
+    interface Empleado{
+        boolean insertarEmpleado(in long cedula, in wstring nombre, in wstring apellido, in wstring telefono , in wstring genero,in wstring cargo);
+        boolean actualizarEmpleado(in long cedula, in wstring nombre, in wstring apellido, in wstring telefono , in wstring genero,in wstring cargo);
+        boolean eliminarEmpleado(in long cedula);
+        wstring consultarEmpleado(in long cedula);
+
+        oneway void shoutdown();
+    };
+};
