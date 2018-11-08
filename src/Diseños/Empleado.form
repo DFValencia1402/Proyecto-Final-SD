@@ -268,6 +268,9 @@
               <Table columnCount="0" rowCount="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblEmpleadosMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -278,7 +281,7 @@
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="3">
-            <StringItem index="0" value="***Seleccionar***"/>
+            <StringItem index="0" value="*Seleccionar*"/>
             <StringItem index="1" value="Masculino"/>
             <StringItem index="2" value="Femenino"/>
           </StringArray>
@@ -316,7 +319,7 @@
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">
-            <StringItem index="0" value="Seleccionar:"/>
+            <StringItem index="0" value="*Seleccionar*"/>
             <StringItem index="1" value="Cajer@"/>
             <StringItem index="2" value="Contad@r"/>
             <StringItem index="3" value="Domiciliario"/>
@@ -339,6 +342,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="ACTUALIZAR"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnactualizarActionPerformed"/>
+      </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="640" y="130" width="110" height="30"/>

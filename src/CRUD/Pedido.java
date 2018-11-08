@@ -1,6 +1,7 @@
+
 package CRUD;
 
-import Empleados.*;
+import Pedidos.*;
 import Diseños.*;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -10,14 +11,13 @@ import javax.swing.JOptionPane;
  *
  * @author DFVAL
  */
-public class Empleados extends EmpleadoPOA{
-    
+public class Pedido extends PedidoPOA{
+
     Conexion objConec = new Conexion();
-    @Override
-    public boolean insertarEmpleado(int cedula, String nombre, String apellido, String telefono, String genero, String cargo) {
-        boolean resultado = false;
+    public boolean insertarPedidos(int idpedidos, int idcliente, String nombre, String direccion, String telefono, String estado) {
+      boolean resultado = false;
         try {
-            String sql = "insert into empleado (cc,nombre,apellido,telefono,genero,cargo) values ('"+cedula+"','"+nombre+"','"+apellido+"','"+telefono+"','"+genero+"','"+cargo+"')";
+            String sql = "insert into pedidos (id_pedidos,id_clientes,nombre,direccion,telefono,estado) values ('"+idpedidos+"','"+idcliente+"','"+nombre+"','"+direccion+"','"+telefono+"','"+estado+"')";
             objConec.conectar();
             Statement st = objConec.conex.createStatement();
             int valor = st.executeUpdate(sql);
@@ -35,10 +35,10 @@ public class Empleados extends EmpleadoPOA{
     }
 
     @Override
-    public boolean actualizarEmpleado(int cedula, String nombre, String apellido, String telefono, String genero, String cargo) {
-        boolean resultado = false;
+    public boolean actualizarPediso(int idPedidos, int idClientes, String nombre, String direccion, String telefono, String estado) {
+      boolean resultado = false;
         try {
-            String sql = "UPDATE empleado SET nombre = '"+nombre+"', apellido = '"+apellido+"', telefono = '"+telefono+"' , genero = '"+genero+"' , cargo = '"+cargo+"' where cc = '"+cedula+"' ";
+            String sql = "UPDATE pedidos SET id_cliente = '"+idClientes+"', nombre = '"+nombre+"', direccion = '"+direccion+"' , telefono = '"+telefono+"' , estado = '"+estado+"' where id_pedidos = '"+idPedidos+"' ";
             //Se realiza la conexión con la base de datos
             objConec.conectar();
             Statement st = objConec.conex.createStatement();
@@ -54,13 +54,14 @@ public class Empleados extends EmpleadoPOA{
         }  
         
         return resultado;
+      
     }
 
     @Override
-    public boolean eliminarEmpleado(int cedula) {
+    public boolean eliminarPedidos(int idPedidos) {
         boolean resultado = false;
         try {
-            String sql = "DELETE FROM empleado WHERE cc = " + cedula;
+            String sql = "DELETE FROM pedidos WHERE id_pedidos = " + idPedidos;
             //Se realiza la conexión con la base de datos
             objConec.conectar();
             Statement st = objConec.conex.createStatement();
@@ -74,16 +75,16 @@ public class Empleados extends EmpleadoPOA{
         } catch (Exception e) {
            JOptionPane.showMessageDialog(null, "Error al eliminar. "+e.getMessage());
         }        
-        return resultado;
+        return resultado; 
     }
 
     @Override
-    public String consultarEmpleado(int cedula) {
+    public String consultarPedidos(int idPedidos) {
         String resultado = "";
         
         try {
             
-            String sqlConsultar = "Select * from empleado where cedula = " + cedula;
+            String sqlConsultar = "Select * from pedidos where id_pedidos = " + idPedidos;
             //Se realiza la conexión con la base de datos
             objConec.conectar();
             Statement st = objConec.conex.createStatement();
@@ -107,12 +108,12 @@ public class Empleados extends EmpleadoPOA{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-     public ResultSet cargarEmpleado(){
+     public ResultSet cargarPedidos(){
         
        ResultSet resultado = null;
        
         try {
-            String sqlConsultar = "Select cc, nombre, apellido, telefono, genero, cargo from empleado";
+            String sqlConsultar = "Select id_pedidos, id_clientes, nombre, direccion, telefono, estado from pedidos";
             //Se realiza la conexión con la base de datos
             objConec.conectar();
             Statement st = objConec.conex.createStatement();
@@ -127,8 +128,11 @@ public class Empleados extends EmpleadoPOA{
         }
        return resultado;
     }
-    
-    
-    
-    
+
+    @Override
+    public boolean insertarPedidos(int idCliente, String nombre, String direccion, String telefono, String estado) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+   
 }

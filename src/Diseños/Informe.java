@@ -1,24 +1,55 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Diseños;
 
-/**
- *
- * @author DFVAL
- */
+ import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import CRUD.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Informe extends javax.swing.JFrame {
 
     /**
      * Creates new form Informe
      */
+    private DefaultTableModel modelo;
     public Informe() {
         initComponents();
         this.setLocationRelativeTo(null);   
-        this.setSize(750, 450);
+        this.setSize(780, 450);
     }
+     //Agragamos las columnas a nuestra Tabla
+    private void mostrarColumna(){
+        modelo = (DefaultTableModel) tblInforme.getModel();
+        
+        modelo.addColumn("CC");
+        modelo.addColumn("NOMBRE");
+        modelo.addColumn("APELLIDO");
+        modelo.addColumn("TELEFONO");
+        modelo.addColumn("GENERO");
+        modelo.addColumn("CARGO");
+    }
+   private void cargarRegistro(){
+        
+        Empleados objEmpleado = new Empleados();
+        
+        modelo = (DefaultTableModel) tblInforme.getModel();
+        
+        ResultSet resultado = objEmpleado.cargarEmpleado();
+        
+        try {
+            Object datos[] = new Object[6];
+            while (resultado.next()) {
+                for (int i = 0; i < 6; i++) {
+                    datos[i] = resultado.getObject(i + 1);
+                }
+                modelo.addRow(datos);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error" + e.getMessage());
+        }
+        
+   }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,7 +62,7 @@ public class Informe extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblInforme = new javax.swing.JTable();
         btnemp = new javax.swing.JButton();
         btnpedi = new javax.swing.JButton();
         btnprod = new javax.swing.JButton();
@@ -49,24 +80,29 @@ public class Informe extends javax.swing.JFrame {
         getContentPane().add(jLabel1);
         jLabel1.setBounds(270, 20, 210, 50);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblInforme.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblInforme);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(50, 80, 680, 170);
+        jScrollPane1.setBounds(50, 90, 680, 150);
 
         btnemp.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnemp.setText("EMPLEADOS");
+        btnemp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnempActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnemp);
         btnemp.setBounds(80, 300, 110, 23);
 
@@ -122,6 +158,11 @@ public class Informe extends javax.swing.JFrame {
            dispose();
     }//GEN-LAST:event_btnmenprincipalMouseClicked
 
+    private void btnempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnempActionPerformed
+         mostrarColumna();
+         cargarRegistro();
+    }//GEN-LAST:event_btnempActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -167,6 +208,6 @@ public class Informe extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblInforme;
     // End of variables declaration//GEN-END:variables
 }

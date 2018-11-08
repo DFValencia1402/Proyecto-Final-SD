@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import CRUD.*;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 
 public class Empleado extends javax.swing.JFrame {
@@ -15,8 +16,6 @@ public class Empleado extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);   
         this.setSize(800, 580);
-        
-       
     }
 
     //Agragamos las columnas a nuestra Tabla
@@ -212,13 +211,18 @@ public class Empleado extends javax.swing.JFrame {
 
             }
         ));
+        tblEmpleados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblEmpleadosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblEmpleados);
 
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(40, 340, 730, 110);
 
         cmbGenero.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cmbGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "***Seleccionar***", "Masculino", "Femenino" }));
+        cmbGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "*Seleccionar*", "Masculino", "Femenino" }));
         getContentPane().add(cmbGenero);
         cmbGenero.setBounds(150, 240, 130, 30);
 
@@ -233,12 +237,17 @@ public class Empleado extends javax.swing.JFrame {
         btnLimpiar.setBounds(370, 270, 140, 30);
 
         cmbCargo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cmbCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar:", "Cajer@", "Contad@r", "Domiciliario" }));
+        cmbCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "*Seleccionar*", "Cajer@", "Contad@r", "Domiciliario" }));
         getContentPane().add(cmbCargo);
         cmbCargo.setBounds(150, 280, 130, 30);
 
         btnactualizar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnactualizar.setText("ACTUALIZAR");
+        btnactualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnactualizarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnactualizar);
         btnactualizar.setBounds(640, 130, 110, 30);
 
@@ -375,7 +384,56 @@ public class Empleado extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnEliminarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEmpleadoActionPerformed
-     
+
+        
+        if (tblEmpleados.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Por favor, presione el boton de buscar");
+            return;
+        }
+        
+        if (tblEmpleados.getSelectedRow() == -1 ) {
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione una fila");
+            return;
+        }
+        
+        Empleados objEmpleado = new Empleados();
+        modelo = (DefaultTableModel) tblEmpleados.getModel();
+        
+        try {
+            
+            int cedula = Integer.parseInt(txtCedula.getText());
+            
+            boolean result = objEmpleado.eliminarEmpleado(cedula);
+            
+            if (result == true) {
+                JOptionPane.showMessageDialog(null, "El registro se eliminò correctamente");
+                //Limpiamos las cajas de texto y los ComboBox.
+                txtCedula.setText("");
+                txtNom.setText("");
+                txtApe.setText("");
+                txtTel.setText("");
+                cmbCargo.setSelectedIndex(0);
+                cmbGenero.setSelectedIndex(0);
+                //Limpiamos la tabla (Registros, Columnas).
+                modelo.setColumnCount(0);
+                modelo.setRowCount(0);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Error al eliminar");
+            }
+            
+            
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Lo sentimos, ocurrio un problema, por favor intenta de nuevo");
+            
+        }
+        
+        
+        
+        
+        
+        
     }//GEN-LAST:event_btnEliminarEmpleadoActionPerformed
 
     private void btnEliminarEmpleadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarEmpleadoMouseClicked
@@ -391,6 +449,158 @@ public class Empleado extends javax.swing.JFrame {
         mostrarColumna();
         cargarRegistro();
     }//GEN-LAST:event_btnBuscarEmpleadoActionPerformed
+
+    private void btnactualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnactualizarActionPerformed
+        //********************Programaciòn para el Boton actualizar************
+        
+        //Validar si el usuario no ha presionado el Boton de buscar.
+        
+        if (tblEmpleados.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Por favor, presione el boton de buscar");
+            return;
+        }
+        
+        if (tblEmpleados.getSelectedRow() == -1 ) {
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione una fila");
+            return;
+        }
+        
+        if (txtCedula.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Por favor, ingresa un cedula!");
+            txtCedula.requestFocus();
+            return;
+        }
+        if (txtNom.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Por favor, ingresa un nombre!");
+            txtNom.requestFocus();
+            return;
+        }
+        if (txtApe.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Por favor, ingresa un Apellido");
+            txtApe.requestFocus();
+            return;
+        }if (txtTel.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Por favor, ingresa un telefono!");
+            txtTel.requestFocus();
+            return;
+        }
+        if (cmbGenero.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Por favor, Selecciona un genero!");
+            txtCedula.requestFocus();
+            return;
+        }
+        if (cmbCargo.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Por favor, Selecciona un genero!");
+            cmbCargo.requestFocus();
+            return;
+        }
+        
+        //Instanciaciòn de la clase Empleados para obtener todos los metodos, atributos
+        
+        Empleados objEmpleado = new Empleados();
+        
+        
+        int cedula =  Integer.parseInt(txtCedula.getText());
+        String nombre = txtNom.getText();
+        String apellido = txtApe.getText();
+        String telefono = txtTel.getText();
+        String genero = "";
+        String cargo = "";
+        
+        //Validacion para el comboBox Genero
+        if (cmbGenero.getSelectedIndex() == 1) {
+            genero = "Masculino";
+        }
+        else{
+            genero = "Femenino";
+        }
+        
+        //Validacion para el comboBox Genero
+        switch (cmbCargo.getSelectedIndex()) {
+            case 1:
+                cargo = "Cajer@";
+                break;
+            case 2:
+                cargo = "Contad@r";
+                break;
+            case 3:
+                cargo = "Domiciliario";
+                break;
+        }
+        
+        modelo = (DefaultTableModel) tblEmpleados.getModel();
+        try {
+            boolean result = objEmpleado.actualizarEmpleado(cedula, nombre, apellido, telefono, genero, cargo);
+            if (result == true) {
+                JOptionPane.showMessageDialog(null, "Los datos se Actualizaron correctamente.");
+                //Limpiamos las cajas de texto y los ComboBox.
+                txtCedula.setText("");
+                txtNom.setText("");
+                txtApe.setText("");
+                txtTel.setText("");
+                cmbCargo.setSelectedIndex(0);
+                cmbGenero.setSelectedIndex(0);
+                //Limpiamos la tabla (Registros, Columnas).
+                modelo.setColumnCount(0);
+                modelo.setRowCount(0);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error" + e.getMessage());
+        }
+        
+        
+        
+        
+    }//GEN-LAST:event_btnactualizarActionPerformed
+
+    private void tblEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmpleadosMouseClicked
+       
+        /*Programacion para cuando el Usuario seleccione una fila
+        Los datos se muestre en los componentes graficos (TextField, ComboBox)*/
+        
+        modelo = (DefaultTableModel) tblEmpleados.getModel();
+        
+        try {
+            
+            //Llenar los datos que se encuentran en la tabla
+            txtCedula.setText(String.valueOf(modelo.getValueAt(tblEmpleados.getSelectedRow() , 0)));
+            txtNom.setText(String.valueOf(modelo.getValueAt(tblEmpleados.getSelectedRow() , 1)));
+            txtApe.setText(String.valueOf(modelo.getValueAt(tblEmpleados.getSelectedRow() , 2)));
+            txtTel.setText(String.valueOf(modelo.getValueAt(tblEmpleados.getSelectedRow() , 3)));
+            
+            String genero = (String)modelo.getValueAt(tblEmpleados.getSelectedRow(), 4);
+            
+            if (genero.equals("Masculino")) {
+                cmbGenero.setSelectedItem("Masculino");
+            }
+            else{
+                cmbGenero.setSelectedItem("Femenino");
+            }
+            
+            String cargo = (String)modelo.getValueAt(tblEmpleados.getSelectedRow(), 5);
+        
+        //Validacion para el comboBox Genero
+        switch (cargo) {
+            case "Cajer@":
+                cmbCargo.setSelectedItem("Cajer@");
+            break;
+            case "Contad@r":
+                cmbCargo.setSelectedItem("Contad@r");
+            break;
+            case "Domiciliario":
+                cmbCargo.setSelectedItem("Domiciliario");
+            break;
+        }      
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Lo sentimos, Ocurriò un error al seleccionar una fila ¡Intentalo de nuevo!");
+        }
+        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_tblEmpleadosMouseClicked
 
     /**
      * @param args the command line arguments

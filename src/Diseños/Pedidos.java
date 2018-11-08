@@ -1,34 +1,57 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+
 package Diseños;
     import javax.swing.JOptionPane;
     import javax.swing.table.DefaultTableModel;
+    import CRUD.*;
+    import java.sql.ResultSet;
+    import java.sql.SQLException;
 
 /**
  *
  * @author DFVAL
  */
 public class Pedidos extends javax.swing.JFrame {
-     DefaultTableModel model = new DefaultTableModel();
-    /**
-     * Creates new form Pedidos
-     */
+     
+    DefaultTableModel model = new DefaultTableModel();
+  
+     private DefaultTableModel modelo;
     public Pedidos() {
         initComponents();
         this.setLocationRelativeTo(null);   
         this.setSize(800, 580);
+    }
+       //Agragamos las columnas a nuestra Tabla
+    private void mostrarColumna(){
+        modelo = (DefaultTableModel) tblPedidos.getModel();
         
-        //CREAMOS COLUMNAS DE NUESTRA TABLA
-        model.addColumn("ID.PEDIDOS");
-        model.addColumn("ID.CLIENTES");
-        model.addColumn("NOMBRE");
-        model.addColumn("DIRECCION");
-        model.addColumn("TELEFONO");
+        modelo.addColumn("ID_PEDIDOS");
+        modelo.addColumn("ID_CLIENTES");
+        modelo.addColumn("NOMBRE");
+        modelo.addColumn("DIRECCION");
+        modelo.addColumn("TELEFONO");
+        modelo.addColumn("ESTADO");
+    }
+   
+    private void cargarRegistro(){
         
-        this.tabladedatos.setModel(model);
+        Pedido objPedido = new Pedido();
+        
+        modelo = (DefaultTableModel) tblPedidos.getModel();
+        
+        ResultSet resultado = objPedido.cargarPedidos();
+        
+        try {
+            Object datos[] = new Object[6];
+            while (resultado.next()) {
+                for (int i = 0; i < 6; i++) {
+                    datos[i] = resultado.getObject(i + 1);
+                }
+                modelo.addRow(datos);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error" + e.getMessage());
+        }
     }
 
     /**
@@ -51,14 +74,17 @@ public class Pedidos extends javax.swing.JFrame {
         txtnom = new javax.swing.JTextField();
         txtdir = new javax.swing.JTextField();
         txttel = new javax.swing.JTextField();
-        btnregistrar = new javax.swing.JButton();
+        btnRegistrarPedidos = new javax.swing.JButton();
         btnbuscarempleado = new javax.swing.JButton();
-        btneliminarempleado = new javax.swing.JButton();
+        btnEliminarPedido = new javax.swing.JButton();
         btnsalir = new javax.swing.JButton();
         btnmenuprincipal = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabladedatos = new javax.swing.JTable();
+        tblPedidos = new javax.swing.JTable();
         btnlimpiarcampos = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        txtEstado = new javax.swing.JTextField();
+        btnActualizar = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -116,32 +142,37 @@ public class Pedidos extends javax.swing.JFrame {
         getContentPane().add(txttel);
         txttel.setBounds(140, 270, 180, 30);
 
-        btnregistrar.setText("REGISTRAR");
-        btnregistrar.addActionListener(new java.awt.event.ActionListener() {
+        btnRegistrarPedidos.setText("REGISTRAR");
+        btnRegistrarPedidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnregistrarActionPerformed(evt);
+                btnRegistrarPedidosActionPerformed(evt);
             }
         });
-        getContentPane().add(btnregistrar);
-        btnregistrar.setBounds(350, 160, 100, 30);
+        getContentPane().add(btnRegistrarPedidos);
+        btnRegistrarPedidos.setBounds(350, 160, 100, 30);
 
         btnbuscarempleado.setText("BUSCAR");
+        btnbuscarempleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbuscarempleadoActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnbuscarempleado);
         btnbuscarempleado.setBounds(480, 160, 110, 30);
 
-        btneliminarempleado.setText("ELIMINAR");
-        btneliminarempleado.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnEliminarPedido.setText("ELIMINAR");
+        btnEliminarPedido.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btneliminarempleadoMouseClicked(evt);
+                btnEliminarPedidoMouseClicked(evt);
             }
         });
-        btneliminarempleado.addActionListener(new java.awt.event.ActionListener() {
+        btnEliminarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btneliminarempleadoActionPerformed(evt);
+                btnEliminarPedidoActionPerformed(evt);
             }
         });
-        getContentPane().add(btneliminarempleado);
-        btneliminarempleado.setBounds(620, 160, 110, 30);
+        getContentPane().add(btnEliminarPedido);
+        btnEliminarPedido.setBounds(480, 230, 110, 30);
 
         btnsalir.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnsalir.setText("SALIR");
@@ -163,21 +194,21 @@ public class Pedidos extends javax.swing.JFrame {
         getContentPane().add(btnmenuprincipal);
         btnmenuprincipal.setBounds(440, 490, 150, 30);
 
-        tabladedatos.setModel(new javax.swing.table.DefaultTableModel(
+        tblPedidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
-        jScrollPane1.setViewportView(tabladedatos);
+        jScrollPane1.setViewportView(tblPedidos);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(30, 330, 730, 140);
+        jScrollPane1.setBounds(30, 360, 730, 120);
 
         btnlimpiarcampos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnlimpiarcampos.setText("LIMPIAR CAMPOS");
@@ -187,7 +218,25 @@ public class Pedidos extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnlimpiarcampos);
-        btnlimpiarcampos.setBounds(470, 223, 140, 30);
+        btnlimpiarcampos.setBounds(380, 310, 140, 30);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(51, 51, 255));
+        jLabel2.setText("ESTADO");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(30, 320, 60, 20);
+        getContentPane().add(txtEstado);
+        txtEstado.setBounds(140, 310, 180, 30);
+
+        btnActualizar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnActualizar.setText("ACTUALIZAR");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnActualizar);
+        btnActualizar.setBounds(620, 160, 110, 30);
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/org-fondo-madera-negro.jpg"))); // NOI18N
         getContentPane().add(jLabel8);
@@ -200,16 +249,80 @@ public class Pedidos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtidclieActionPerformed
 
-    private void btnregistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistrarActionPerformed
-       String []registrar = new String[6];
+    private void btnRegistrarPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarPedidosActionPerformed
+       //***programacion para el boton Guardar.
+       
+       //Validaciòn.
+        if (txtidped.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Por favor, Ingrese # Pedido");
+            txtidped.requestFocus();
+            return;
+        }
+        if (txtidclie.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Por favor, Ingrese una Cedula");
+            txtidclie.requestFocus();
+            return;
+        }
+        if (txtnom.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Por favor, Ingrese tùs Nombres");
+            txtnom.requestFocus();
+            return;
+        }
+        if (txtdir.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Por favor, Ingrese una Direccion");
+            txtdir.requestFocus();
+            return;
+        }
+        if (txttel.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Por favor, Ingrese una Telefono");
+            txttel.requestFocus();
+            return;
+        }
+        if (txtEstado.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Por favor, Ingrese su Estado");
+            txtEstado.requestFocus();
+            return;
+        }
+        //Instanciaciòn de la clase Empleados para obtener todos los metodos, atributos
+        
+        Pedido objPedido = new Pedido();
+        
+        //Obtenemos todos los datos digitados por el Usuario.
+        
+        int idpedido =  Integer.parseInt(txtidped.getText());
+        int idcliente = Integer.parseInt(txtidclie.getText());
+        String nombre = txtnom.getText();
+        String direccion = txtdir.getText();
+        String telefono = txttel.getText();
+        String estado = txtEstado.getText();
+       
+        try {
+            boolean resultado = objPedido.insertarPedidos(idpedido, idcliente, nombre, direccion, telefono, estado);
+            if (resultado == true) {
+                JOptionPane.showMessageDialog(null, "Los datos se han registrado satisfactoriamente");
+                txtidped.setText("");
+                txtidclie.setText("");
+                txtnom.setText("");
+                txtdir.setText("");
+                txttel.setText("");
+                txtEstado.setText("");
+                
+            }
+            else {
+                
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Lo sentimos, ocurrio algo inesperado, por favor vuelva a intentarlo");
+        }
+      String []registrar = new String[6];
       registrar[0]=txtidped.getText();
       registrar[1]=txtidclie.getText();
       registrar[2]=txtnom.getText();
       registrar[3]=txtdir.getText();
       registrar[3]=txttel.getText();
-  
-      model.addRow(registrar);
-    }//GEN-LAST:event_btnregistrarActionPerformed
+      
+      modelo.addRow(registrar);
+    }//GEN-LAST:event_btnRegistrarPedidosActionPerformed
 
     private void btnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalirActionPerformed
         System.exit(WIDTH);
@@ -229,18 +342,152 @@ public class Pedidos extends javax.swing.JFrame {
         txttel.setText("");
     }//GEN-LAST:event_btnlimpiarcamposActionPerformed
 
-    private void btneliminarempleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarempleadoActionPerformed
+    private void btnEliminarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPedidoActionPerformed
        
-    }//GEN-LAST:event_btneliminarempleadoActionPerformed
+        if (tblPedidos.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Por favor, presione el boton de buscar");
+            return;
+        }
+        
+        if (tblPedidos.getSelectedRow() == -1 ) {
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione una fila");
+            return;
+        }
+        
+        Pedidos objPedido = new Pedidos();
+        modelo = (DefaultTableModel) tblPedidos.getModel();
+        
+        try {
+            
+            int idpedido = Integer.parseInt(txtidped.getText());
+            
+            boolean result = objPedido.eliminarPedidos(idpedido);
+            
+            if (result == true) {
+                JOptionPane.showMessageDialog(null, "El registro se eliminò correctamente");
+                //Limpiamos las cajas de texto y los ComboBox.
+                txtidped.setText("");
+                txtidclie.setText("");
+                txtnom.setText("");
+                txtdir.setText("");
+                txttel.setText("");
+                txtEstado.setText("");
+                //Limpiamos la tabla (Registros, Columnas).
+                modelo.setColumnCount(0);
+                modelo.setRowCount(0);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Error al eliminar");
+            }
+                   
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Lo sentimos, ocurrio un problema, por favor intenta de nuevo");
+            
+        }
+           
+    }//GEN-LAST:event_btnEliminarPedidoActionPerformed
 
-    private void btneliminarempleadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btneliminarempleadoMouseClicked
-         int eli=tabladedatos.getSelectedRowCount();
+    private void btnEliminarPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarPedidoMouseClicked
+         int eli=tblPedidos.getSelectedRowCount();
        if(eli>=0){
            model.removeRow(eli);
        }else{
            JOptionPane.showMessageDialog(null,"No Hay Datos Que Eliminar");
        }
-    }//GEN-LAST:event_btneliminarempleadoMouseClicked
+    }//GEN-LAST:event_btnEliminarPedidoMouseClicked
+
+    private void btnbuscarempleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarempleadoActionPerformed
+        mostrarColumna();
+        cargarRegistro();
+    }//GEN-LAST:event_btnbuscarempleadoActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        //********************Programaciòn para el Boton actualizar************
+        
+        //Validar si el usuario no ha presionado el Boton de buscar.
+        
+        if (tblPedidos.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Por favor, presione el boton de buscar");
+            return;
+        }
+        
+        if (tblPedidos.getSelectedRow() == -1 ) {
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione una fila");
+            return;
+        }
+        
+        if (txtidped.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese Numero del Pedido!");
+            txtidped.requestFocus();
+            return;
+        }
+        if (txtidclie.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese una Cedula!");
+            txtidclie.requestFocus();
+            return;
+        }
+        
+        if (txtnom.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Por favor, ingresa un Nombre");
+            txtnom.requestFocus();
+            return;
+        }
+        
+        if (txtdir.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese una Direccion!");
+            txtdir.requestFocus();
+            return;
+        }
+        
+        if (txttel.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un Telefono!");
+            txttel.requestFocus();
+            return;
+        }
+        
+        
+        if (txtEstado.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese su Estado!");
+            txtEstado.requestFocus();
+            return;
+        }
+        
+        
+        //Instanciaciòn de la clase Empleados para obtener todos los metodos, atributos
+        
+        Pedido objPedido = new Pedido();
+        
+        
+        int idpedido =  Integer.parseInt(txtidped.getText());
+        int idcliente =  Integer.parseInt(txtidclie.getText());
+        String nombre = txtnom.getText();
+        String direccion = txtdir.getText();
+        String telefono = txttel.getText();
+        String estado = txtEstado.getText();
+        
+        
+        modelo = (DefaultTableModel) tblPedidos.getModel();
+        try {
+            boolean result = objPedido.actualizarPediso(idpedido, idcliente, nombre, direccion, telefono, estado);
+            if (result == true) {
+                JOptionPane.showMessageDialog(null, "Los datos se Actualizaron correctamente.");
+                //Limpiamos las cajas de texto y los ComboBox.
+                txtidped.setText("");
+                txtidclie.setText("");
+                txtnom.setText("");
+                txtdir.setText("");
+                txttel.setText("");
+                txtEstado.setText("");
+                
+                //Limpiamos la tabla (Registros, Columnas).
+                modelo.setColumnCount(0);
+                modelo.setRowCount(0);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error" + e.getMessage());
+        }
+                             
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -278,13 +525,15 @@ public class Pedidos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnEliminarPedido;
+    private javax.swing.JButton btnRegistrarPedidos;
     private javax.swing.JButton btnbuscarempleado;
-    private javax.swing.JButton btneliminarempleado;
     private javax.swing.JButton btnlimpiarcampos;
     private javax.swing.JButton btnmenuprincipal;
-    private javax.swing.JButton btnregistrar;
     private javax.swing.JButton btnsalir;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -292,11 +541,16 @@ public class Pedidos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tabladedatos;
+    private javax.swing.JTable tblPedidos;
+    private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtdir;
     private javax.swing.JTextField txtidclie;
     private javax.swing.JTextField txtidped;
     private javax.swing.JTextField txtnom;
     private javax.swing.JTextField txttel;
     // End of variables declaration//GEN-END:variables
+
+    private boolean eliminarPedidos(int idpedido) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
