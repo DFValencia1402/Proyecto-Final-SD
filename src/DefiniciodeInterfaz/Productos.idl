@@ -1,0 +1,12 @@
+module Productos{
+    interface Producto{
+        boolean insertarProductos(in long Codigo, in wstring fechaingreso, in wstring tipo, in wstring cantidad, in wstring valor);
+        boolean actualizarProductos(in long Codigo, in wstring fechaingreso, in wstring tipo, in wstring cantidad, in wstring valor);
+        boolean eliminarProductos(in long Codigo);
+        wstring consultarProductos(in long Codigo);
+        
+
+        oneway void shoutdown();
+    };
+};
+
