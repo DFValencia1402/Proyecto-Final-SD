@@ -17,7 +17,7 @@ public class MENU extends javax.swing.JFrame {
     public MENU() {
         initComponents();
         this.setLocationRelativeTo(null);   
-        this.setSize(500, 350);
+        this.setSize(600, 450);
     }
 
     /**
@@ -47,7 +47,7 @@ public class MENU extends javax.swing.JFrame {
         jLabel1.setText("¿ QUE DESEAS HACER ?");
         jLabel1.setToolTipText("");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(100, 20, 300, 60);
+        jLabel1.setBounds(130, 40, 300, 60);
 
         btnagregarempleado.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnagregarempleado.setText("AGREGAR EMPLEADO");
@@ -57,7 +57,7 @@ public class MENU extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnagregarempleado);
-        btnagregarempleado.setBounds(50, 120, 151, 23);
+        btnagregarempleado.setBounds(50, 140, 160, 30);
 
         btnagregarpedidos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnagregarpedidos.setText("AGREGAR PEDIDOS");
@@ -67,7 +67,7 @@ public class MENU extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnagregarpedidos);
-        btnagregarpedidos.setBounds(50, 170, 150, 23);
+        btnagregarpedidos.setBounds(50, 200, 160, 30);
 
         btnagregarproveedor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnagregarproveedor.setText("AGREGAR PROVEEDOR");
@@ -77,7 +77,7 @@ public class MENU extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnagregarproveedor);
-        btnagregarproveedor.setBounds(270, 120, 170, 23);
+        btnagregarproveedor.setBounds(360, 140, 180, 30);
 
         btnagregarproducto.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnagregarproducto.setText("AGREGAR PRODUTO");
@@ -87,7 +87,7 @@ public class MENU extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnagregarproducto);
-        btnagregarproducto.setBounds(270, 170, 170, 23);
+        btnagregarproducto.setBounds(360, 210, 180, 30);
 
         btnverregistro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnverregistro.setText("VER REGISTROS");
@@ -97,7 +97,7 @@ public class MENU extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnverregistro);
-        btnverregistro.setBounds(180, 220, 130, 23);
+        btnverregistro.setBounds(220, 270, 140, 30);
 
         btnsalir.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnsalir.setText("SALIR");
@@ -107,7 +107,7 @@ public class MENU extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnsalir);
-        btnsalir.setBounds(40, 280, 65, 23);
+        btnsalir.setBounds(50, 360, 80, 30);
 
         btncsesion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btncsesion.setText("CERRAR SESION");
@@ -117,11 +117,11 @@ public class MENU extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btncsesion);
-        btncsesion.setBounds(343, 280, 130, 23);
+        btncsesion.setBounds(400, 360, 150, 30);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/org-fondo-madera-negro.jpg"))); // NOI18N
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(10, 0, 490, 320);
+        jLabel2.setBounds(10, 0, 580, 410);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

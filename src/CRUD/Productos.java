@@ -1,27 +1,27 @@
 
 package CRUD;
 
-import Pedidos.*;
+import Productos.*;
 import Diseños.*;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
-
 /**
  *
  * @author DFVAL
  */
-public class Pedido extends PedidoPOA{
-
+public class Productos extends ProductoPOA{
+    
     Conexion objConec = new Conexion();
-    public boolean insertarPedidos(int idpedidos, int idcliente, String nombre, String direccion, String telefono, String estado) {
+    @Override
+    public boolean insertarProductos(int Codigo, String fechaingreso, String tipo, String cantidad, String valor) {
       boolean resultado = false;
         try {
-            String sql = "insert into pedidos (id_pedidos,id_clientes,nombre,direccion,telefono,estado) values ('"+idpedidos+"','"+idcliente+"','"+nombre+"','"+direccion+"','"+telefono+"','"+estado+"')";
+            String sql = "insert into producto (codigo,fechaingreso,tipo,cantidad,valor) values ('"+Codigo+"','"+fechaingreso+"','"+tipo+"','"+cantidad+"','"+valor+"')";
             objConec.conectar();
             Statement st = objConec.conex.createStatement();
-            int valor = st.executeUpdate(sql);
-            if(valor>0){
+            int val = st.executeUpdate(sql);
+            if(val>0){
                 resultado = true;
             }
             //Se cierran las conexiones
@@ -35,15 +35,15 @@ public class Pedido extends PedidoPOA{
     }
 
     @Override
-    public boolean actualizarPediso(int idPedidos, int idClientes, String nombre, String direccion, String telefono, String estado) {
+    public boolean actualizarProductos(int Codigo, String fechaingreso, String tipo, String cantidad, String valor) {
       boolean resultado = false;
         try {
-            String sql = "UPDATE pedidos SET id_clientes = '"+idClientes+"', nombre = '"+nombre+"', direccion = '"+direccion+"' , telefono = '"+telefono+"' , estado = '"+estado+"' where id_pedidos = '"+idPedidos+"' ";
+            String sql = "UPDATE producto SET fechaingreso = '"+fechaingreso+"', tipo = '"+tipo+"', cantidad = '"+cantidad+"' , valor = '"+valor+"' where codigo = '"+Codigo+"' ";
             //Se realiza la conexión con la base de datos
             objConec.conectar();
             Statement st = objConec.conex.createStatement();
-            int valor = st.executeUpdate(sql);
-            if(valor>0){
+            int val = st.executeUpdate(sql);
+            if(val>0){
                 resultado = true;
             }
             //Se cierran las conexiones.
@@ -54,14 +54,13 @@ public class Pedido extends PedidoPOA{
         }  
         
         return resultado;
-      
     }
 
     @Override
-    public boolean eliminarPedidos(int idPedidos) {
-        boolean resultado = false;
+    public boolean eliminarProductos(int Codigo) {
+      boolean resultado = false;
         try {
-            String sql = "DELETE FROM pedidos WHERE id_pedidos = " + idPedidos;
+            String sql = "DELETE FROM producto WHERE codigo = " + Codigo;
             //Se realiza la conexión con la base de datos
             objConec.conectar();
             Statement st = objConec.conex.createStatement();
@@ -75,16 +74,16 @@ public class Pedido extends PedidoPOA{
         } catch (Exception e) {
            JOptionPane.showMessageDialog(null, "Error al eliminar. "+e.getMessage());
         }        
-        return resultado; 
+        return resultado;
     }
 
     @Override
-    public String consultarPedidos(int idPedidos) {
-        String resultado = "";
+    public String consultarProductos(int Codigo) {
+      String resultado = "";
         
         try {
             
-            String sqlConsultar = "Select * from pedidos where id_pedidos = " + idPedidos;
+            String sqlConsultar = "Select * from producto where codigo = " + Codigo;
             //Se realiza la conexión con la base de datos
             objConec.conectar();
             Statement st = objConec.conex.createStatement();
@@ -101,19 +100,17 @@ public class Pedido extends PedidoPOA{
         
         return resultado;
     }
-    
 
     @Override
     public void shoutdown() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-     public ResultSet cargarPedidos(){
+     public ResultSet cargarProductos(){
         
        ResultSet resultado = null;
        
         try {
-            String sqlConsultar = "Select id_pedidos, id_clientes, nombre, direccion, telefono, estado from pedidos";
+            String sqlConsultar = "Select codigo, fechaingreso, tipo, cantidad, valor from producto";
             //Se realiza la conexión con la base de datos
             objConec.conectar();
             Statement st = objConec.conex.createStatement();
@@ -127,12 +124,6 @@ public class Pedido extends PedidoPOA{
             JOptionPane.showMessageDialog(null, "Error " + e.getMessage());
         }
        return resultado;
-    }
-
-    @Override
-    public boolean insertarPedidos(int idCliente, String nombre, String direccion, String telefono, String estado) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-   
+    
+     }
 }

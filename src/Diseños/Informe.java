@@ -18,8 +18,8 @@ public class Informe extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);   
         this.setSize(780, 450);
     }
-     //Agragamos las columnas a nuestra Tabla
-    private void mostrarColumna(){
+     //Agragamos las columnas a nuestra Tabla Empleados
+    private void mostrarColumnaEmpleado(){
         modelo = (DefaultTableModel) tblInforme.getModel();
         
         modelo.addColumn("CC");
@@ -29,7 +29,7 @@ public class Informe extends javax.swing.JFrame {
         modelo.addColumn("GENERO");
         modelo.addColumn("CARGO");
     }
-   private void cargarRegistro(){
+   private void cargarRegistroEmpleado(){
         
         Empleados objEmpleado = new Empleados();
         
@@ -48,7 +48,104 @@ public class Informe extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error" + e.getMessage());
         }
+           
+   }
+     //Agragamos las columnas a nuestra Tabla Pedidos
+    private void mostrarColumnaPedidos(){
+        modelo = (DefaultTableModel) tblInforme.getModel();
         
+        modelo.addColumn("ID.PEDIDOS");
+        modelo.addColumn("ID.CLIENTES");
+        modelo.addColumn("NOMBRE");
+        modelo.addColumn("DIRECCION");
+        modelo.addColumn("TELEFONO");
+        modelo.addColumn("ESTADO");
+    }
+   private void cargarRegistroPedidos(){
+        
+        Pedido objPedido = new Pedido();
+        
+        modelo = (DefaultTableModel) tblInforme.getModel();
+        
+        ResultSet resultado = objPedido.cargarPedidos();
+        
+        try {
+            Object datos[] = new Object[6];
+            while (resultado.next()) {
+                for (int i = 0; i < 6; i++) {
+                    datos[i] = resultado.getObject(i + 1);
+                }
+                modelo.addRow(datos);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error" + e.getMessage());
+        }
+           
+   }
+   
+   //Agragamos las columnas a nuestra Tabla Producto
+    private void mostrarColumnaProducto(){
+        modelo = (DefaultTableModel) tblInforme.getModel();
+        
+        modelo.addColumn("CODIGO");
+        modelo.addColumn("FECHA INGRESO");
+        modelo.addColumn("TIPO");
+        modelo.addColumn("CANTIDAD");
+        modelo.addColumn("VALOR");
+       
+    }
+   private void cargarRegistroProducto(){
+        
+        Productos objProducto = new Productos();
+        
+        modelo = (DefaultTableModel) tblInforme.getModel();
+        
+        ResultSet resultado = objProducto.cargarProductos();
+        
+        try {
+            Object datos[] = new Object[5];
+            while (resultado.next()) {
+                for (int i = 0; i < 5; i++) {
+                    datos[i] = resultado.getObject(i + 1);
+                }
+                modelo.addRow(datos);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error" + e.getMessage());
+        }
+           
+   }
+    //Agragamos las columnas a nuestra Tabla Proveedores
+    private void mostrarColumnaProveedor(){
+        modelo = (DefaultTableModel) tblInforme.getModel();
+        
+        modelo.addColumn("NIT");
+        modelo.addColumn("NOMBRE");
+        modelo.addColumn("APELLIDO");
+        modelo.addColumn("DIRECCION");
+        modelo.addColumn("TELEFONO");
+       
+    }
+   private void cargarRegistroProveedor(){
+        
+        Proveedores objProveedores = new Proveedores();
+        
+        modelo = (DefaultTableModel) tblInforme.getModel();
+        
+        ResultSet resultado = objProveedores.cargarProveedores();
+        
+        try {
+            Object datos[] = new Object[5];
+            while (resultado.next()) {
+                for (int i = 0; i < 5; i++) {
+                    datos[i] = resultado.getObject(i + 1);
+                }
+                modelo.addRow(datos);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error" + e.getMessage());
+        }
+           
    }
 
     /**
@@ -69,6 +166,7 @@ public class Informe extends javax.swing.JFrame {
         btnprove = new javax.swing.JButton();
         btnsalir = new javax.swing.JButton();
         btnmenprincipal = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -78,7 +176,7 @@ public class Informe extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("INFORME DETALLADO");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(270, 20, 210, 50);
+        jLabel1.setBounds(290, 20, 210, 50);
 
         tblInforme.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -104,22 +202,37 @@ public class Informe extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnemp);
-        btnemp.setBounds(80, 300, 110, 23);
+        btnemp.setBounds(100, 280, 110, 23);
 
         btnpedi.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnpedi.setText("PEDIDOS");
+        btnpedi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnpediActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnpedi);
-        btnpedi.setBounds(240, 300, 100, 23);
+        btnpedi.setBounds(240, 280, 100, 23);
 
         btnprod.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnprod.setText("PRODUCTOS");
+        btnprod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnprodActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnprod);
-        btnprod.setBounds(400, 300, 120, 23);
+        btnprod.setBounds(470, 280, 120, 23);
 
         btnprove.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnprove.setText("PROVEEDORES");
+        btnprove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnproveActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnprove);
-        btnprove.setBounds(570, 300, 130, 23);
+        btnprove.setBounds(610, 280, 130, 23);
 
         btnsalir.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnsalir.setText("SALIR");
@@ -129,7 +242,7 @@ public class Informe extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnsalir);
-        btnsalir.setBounds(210, 390, 65, 23);
+        btnsalir.setBounds(230, 380, 65, 23);
 
         btnmenprincipal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnmenprincipal.setText("MENU PRINCIPAL");
@@ -139,7 +252,16 @@ public class Informe extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnmenprincipal);
-        btnmenprincipal.setBounds(440, 390, 130, 23);
+        btnmenprincipal.setBounds(490, 370, 130, 23);
+
+        jButton1.setText("LIMPIAR TABLA");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(350, 330, 120, 23);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/org-fondo-madera-negro.jpg"))); // NOI18N
         getContentPane().add(jLabel2);
@@ -159,9 +281,29 @@ public class Informe extends javax.swing.JFrame {
     }//GEN-LAST:event_btnmenprincipalMouseClicked
 
     private void btnempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnempActionPerformed
-         mostrarColumna();
-         cargarRegistro();
+         mostrarColumnaEmpleado();
+         cargarRegistroEmpleado();
     }//GEN-LAST:event_btnempActionPerformed
+
+    private void btnpediActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpediActionPerformed
+         mostrarColumnaPedidos();
+         cargarRegistroPedidos();
+    }//GEN-LAST:event_btnpediActionPerformed
+
+    private void btnprodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnprodActionPerformed
+         mostrarColumnaProducto();
+         cargarRegistroProducto();
+    }//GEN-LAST:event_btnprodActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        modelo.setColumnCount(0);
+        modelo.setRowCount(0);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnproveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnproveActionPerformed
+        mostrarColumnaProveedor();
+        cargarRegistroProveedor();
+    }//GEN-LAST:event_btnproveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -205,6 +347,7 @@ public class Informe extends javax.swing.JFrame {
     private javax.swing.JButton btnprod;
     private javax.swing.JButton btnprove;
     private javax.swing.JButton btnsalir;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

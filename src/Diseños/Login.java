@@ -12,7 +12,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         this.setLocationRelativeTo(null);   
-        this.setSize(550, 400);          
+        this.setSize(600, 550);          
         
     }
 
@@ -34,14 +34,12 @@ public class Login extends javax.swing.JFrame {
         lblContraseña = new javax.swing.JLabel();
         txtusuario = new javax.swing.JTextField();
         btningresar = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         Password = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -76,24 +74,26 @@ public class Login extends javax.swing.JFrame {
         getContentPane().setLayout(null);
 
         lblUsuario.setBackground(new java.awt.Color(255, 255, 255));
-        lblUsuario.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        lblUsuario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblUsuario.setForeground(new java.awt.Color(204, 0, 204));
         lblUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblUsuario.setText("USUARIO");
         lblUsuario.setToolTipText("");
         lblUsuario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         getContentPane().add(lblUsuario);
-        lblUsuario.setBounds(140, 180, 90, 30);
+        lblUsuario.setBounds(320, 170, 90, 30);
 
-        lblContraseña.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        lblContraseña.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblContraseña.setForeground(new java.awt.Color(255, 0, 255));
         lblContraseña.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblContraseña.setText("CONTRASEÑA");
         lblContraseña.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         getContentPane().add(lblContraseña);
-        lblContraseña.setBounds(120, 240, 130, 30);
+        lblContraseña.setBounds(320, 280, 130, 30);
 
         txtusuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(txtusuario);
-        txtusuario.setBounds(280, 180, 140, 30);
+        txtusuario.setBounds(320, 220, 210, 30);
 
         btningresar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btningresar.setText("INGRESAR");
@@ -103,29 +103,13 @@ public class Login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btningresar);
-        btningresar.setBounds(210, 300, 120, 23);
-
-        jLabel4.setFont(new java.awt.Font("Microsoft JhengHei", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(204, 204, 0));
-        jLabel4.setText("SALSAMENTARIA SALSAS Y ALGO MAS");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(90, 20, 400, 25);
-        getContentPane().add(jLabel7);
-        jLabel7.setBounds(30, 80, 50, 30);
+        btningresar.setBounds(380, 420, 120, 23);
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/login.png"))); // NOI18N
         getContentPane().add(jLabel8);
-        jLabel8.setBounds(220, 60, 100, 100);
-
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Jamon.jpg"))); // NOI18N
-        getContentPane().add(jLabel9);
-        jLabel9.setBounds(460, 40, 70, 70);
-
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/queso.jpg"))); // NOI18N
-        getContentPane().add(jLabel10);
-        jLabel10.setBounds(10, 60, 60, 40);
+        jLabel8.setBounds(380, 30, 100, 110);
         getContentPane().add(Password);
-        Password.setBounds(280, 240, 140, 30);
+        Password.setBounds(320, 320, 200, 30);
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButton1.setText("SALIR");
@@ -135,11 +119,19 @@ public class Login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(10, 340, 65, 23);
+        jButton1.setBounds(20, 450, 65, 23);
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/windows-login-wallpapers-official-temas-56225.jpg"))); // NOI18N
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/org-fondo-madera-negro.jpg"))); // NOI18N
         getContentPane().add(jLabel11);
-        jLabel11.setBounds(0, 0, 540, 370);
+        jLabel11.setBounds(280, 0, 300, 500);
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logo Principal_opt.png"))); // NOI18N
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(10, 150, 270, 180);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/imagen fondo izquierdo_opt.jpg"))); // NOI18N
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(0, 0, 580, 500);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -209,14 +201,12 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblContraseña;
     private javax.swing.JLabel lblUsuario;

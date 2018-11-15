@@ -4,6 +4,7 @@ package Diseños;
     import javax.swing.JOptionPane;
     import javax.swing.table.DefaultTableModel;
     import CRUD.*;
+    import java.awt.HeadlessException;
     import java.sql.ResultSet;
     import java.sql.SQLException;
 
@@ -49,7 +50,7 @@ public class Pedidos extends javax.swing.JFrame {
                 }
                 modelo.addRow(datos);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error" + e.getMessage());
         }
     }
@@ -85,16 +86,17 @@ public class Pedidos extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtEstado = new javax.swing.JTextField();
         btnActualizar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("PEDIDOS");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(120, 40, 130, 30);
+        jLabel1.setBounds(340, 30, 140, 30);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 255));
@@ -125,6 +127,12 @@ public class Pedidos extends javax.swing.JFrame {
         jLabel7.setText("TELEFONO");
         getContentPane().add(jLabel7);
         jLabel7.setBounds(30, 280, 80, 20);
+
+        txtidped.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtidpedKeyTyped(evt);
+            }
+        });
         getContentPane().add(txtidped);
         txtidped.setBounds(140, 110, 180, 30);
 
@@ -133,12 +141,29 @@ public class Pedidos extends javax.swing.JFrame {
                 txtidclieActionPerformed(evt);
             }
         });
+        txtidclie.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtidclieKeyTyped(evt);
+            }
+        });
         getContentPane().add(txtidclie);
         txtidclie.setBounds(140, 150, 180, 30);
+
+        txtnom.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtnomKeyTyped(evt);
+            }
+        });
         getContentPane().add(txtnom);
         txtnom.setBounds(140, 190, 180, 30);
         getContentPane().add(txtdir);
         txtdir.setBounds(140, 230, 180, 30);
+
+        txttel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txttelKeyTyped(evt);
+            }
+        });
         getContentPane().add(txttel);
         txttel.setBounds(140, 270, 180, 30);
 
@@ -205,6 +230,11 @@ public class Pedidos extends javax.swing.JFrame {
 
             }
         ));
+        tblPedidos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPedidosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblPedidos);
 
         getContentPane().add(jScrollPane1);
@@ -218,13 +248,19 @@ public class Pedidos extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnlimpiarcampos);
-        btnlimpiarcampos.setBounds(380, 310, 140, 30);
+        btnlimpiarcampos.setBounds(390, 310, 140, 30);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 51, 255));
         jLabel2.setText("ESTADO");
         getContentPane().add(jLabel2);
         jLabel2.setBounds(30, 320, 60, 20);
+
+        txtEstado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtEstadoKeyTyped(evt);
+            }
+        });
         getContentPane().add(txtEstado);
         txtEstado.setBounds(140, 310, 180, 30);
 
@@ -237,6 +273,16 @@ public class Pedidos extends javax.swing.JFrame {
         });
         getContentPane().add(btnActualizar);
         btnActualizar.setBounds(620, 160, 110, 30);
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButton1.setText("LIMPIAR TABLA");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(560, 310, 130, 30);
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/org-fondo-madera-negro.jpg"))); // NOI18N
         getContentPane().add(jLabel8);
@@ -254,7 +300,7 @@ public class Pedidos extends javax.swing.JFrame {
        
        //Validaciòn.
         if (txtidped.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Por favor, Ingrese # Pedido");
+            JOptionPane.showMessageDialog(null, "Por favor, Ingrese Numero del Pedido");
             txtidped.requestFocus();
             return;
         }
@@ -311,17 +357,10 @@ public class Pedidos extends javax.swing.JFrame {
             else {
                 
             }
-        } catch (Exception e) {
+        } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(null, "Lo sentimos, ocurrio algo inesperado, por favor vuelva a intentarlo");
         }
-      String []registrar = new String[6];
-      registrar[0]=txtidped.getText();
-      registrar[1]=txtidclie.getText();
-      registrar[2]=txtnom.getText();
-      registrar[3]=txtdir.getText();
-      registrar[3]=txttel.getText();
       
-      modelo.addRow(registrar);
     }//GEN-LAST:event_btnRegistrarPedidosActionPerformed
 
     private void btnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalirActionPerformed
@@ -340,6 +379,7 @@ public class Pedidos extends javax.swing.JFrame {
         txtnom.setText("");
         txtdir.setText("");
         txttel.setText("");
+        txtEstado.setText("");
     }//GEN-LAST:event_btnlimpiarcamposActionPerformed
 
     private void btnEliminarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPedidoActionPerformed
@@ -354,7 +394,7 @@ public class Pedidos extends javax.swing.JFrame {
             return;
         }
         
-        Pedidos objPedido = new Pedidos();
+        Pedido objPedido = new Pedido();
         modelo = (DefaultTableModel) tblPedidos.getModel();
         
         try {
@@ -380,7 +420,7 @@ public class Pedidos extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Error al eliminar");
             }
                    
-        } catch (Exception e) {
+        } catch (HeadlessException | NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Lo sentimos, ocurrio un problema, por favor intenta de nuevo");
             
         }
@@ -483,11 +523,87 @@ public class Pedidos extends javax.swing.JFrame {
                 modelo.setColumnCount(0);
                 modelo.setRowCount(0);
             }
-        } catch (Exception e) {
+        } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(null, "Error" + e.getMessage());
         }
                              
     }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void tblPedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPedidosMouseClicked
+         /*Programacion para cuando el Usuario seleccione una fila
+        Los datos se muestre en los componentes graficos (TextField, ComboBox)*/
+        
+        modelo = (DefaultTableModel) tblPedidos.getModel();
+        
+        try {
+            
+            //Llenar los datos que se encuentran en la tabla
+            txtidped.setText(String.valueOf(modelo.getValueAt(tblPedidos.getSelectedRow() , 0)));
+            txtidclie.setText(String.valueOf(modelo.getValueAt(tblPedidos.getSelectedRow() , 1)));
+            txtnom.setText(String.valueOf(modelo.getValueAt(tblPedidos.getSelectedRow() , 2)));
+            txtdir.setText(String.valueOf(modelo.getValueAt(tblPedidos.getSelectedRow() , 3)));
+            txttel.setText(String.valueOf(modelo.getValueAt(tblPedidos.getSelectedRow() , 4)));
+            txtEstado.setText(String.valueOf(modelo.getValueAt(tblPedidos.getSelectedRow() , 5)));
+       
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Lo sentimos, Ocurriò un error al seleccionar una fila ¡Intentalo de nuevo!");
+        }
+    }//GEN-LAST:event_tblPedidosMouseClicked
+
+    private void txtidpedKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtidpedKeyTyped
+       char validar=evt.getKeyChar();
+      
+      if(Character.isLetter(validar)){
+          getToolkit().beep();
+          evt.consume();
+          JOptionPane.showMessageDialog(null, "Ingrese solo Numeros");
+      }
+    }//GEN-LAST:event_txtidpedKeyTyped
+
+    private void txtidclieKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtidclieKeyTyped
+       char validar=evt.getKeyChar();
+      
+      if(Character.isLetter(validar)){
+          getToolkit().beep();
+          evt.consume();
+          JOptionPane.showMessageDialog(null, "Ingrese solo Numeros");
+      }
+    }//GEN-LAST:event_txtidclieKeyTyped
+
+    private void txtnomKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnomKeyTyped
+      char validar=evt.getKeyChar();
+      
+      if(Character.isDigit(validar)){
+          getToolkit().beep();
+          evt.consume();
+          JOptionPane.showMessageDialog(null, "Ingrese solo Letras");
+      }
+    }//GEN-LAST:event_txtnomKeyTyped
+
+    private void txttelKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttelKeyTyped
+       char validar=evt.getKeyChar();
+      
+      if(Character.isLetter(validar)){
+          getToolkit().beep();
+          evt.consume();
+          JOptionPane.showMessageDialog(null, "Ingrese solo Numeros");
+      }
+    }//GEN-LAST:event_txttelKeyTyped
+
+    private void txtEstadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEstadoKeyTyped
+        char validar=evt.getKeyChar();
+      
+      if(Character.isDigit(validar)){
+          getToolkit().beep();
+          evt.consume();
+          JOptionPane.showMessageDialog(null, "Ingrese solo Letras");
+      }
+    }//GEN-LAST:event_txtEstadoKeyTyped
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        modelo.setColumnCount(0);
+        modelo.setRowCount(0);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -517,11 +633,7 @@ public class Pedidos extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Pedidos().setVisible(true);
-            }
-        });
+        java.awt.EventQueue.invokeLater(new RunnableImpl());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -532,6 +644,7 @@ public class Pedidos extends javax.swing.JFrame {
     private javax.swing.JButton btnlimpiarcampos;
     private javax.swing.JButton btnmenuprincipal;
     private javax.swing.JButton btnsalir;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -552,5 +665,15 @@ public class Pedidos extends javax.swing.JFrame {
 
     private boolean eliminarPedidos(int idpedido) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private static class RunnableImpl implements Runnable {
+
+        public RunnableImpl() {
+        }
+
+        public void run() {
+            new Pedidos().setVisible(true);
+        }
     }
 }

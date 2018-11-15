@@ -83,6 +83,7 @@ public class Empleado extends javax.swing.JFrame {
         btnLimpiar = new javax.swing.JButton();
         cmbCargo = new javax.swing.JComboBox<>();
         btnactualizar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/org-fondo-madera-negro.jpg"))); // NOI18N
@@ -90,11 +91,11 @@ public class Empleado extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("EMPLEADO");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(140, 20, 130, 30);
+        jLabel1.setBounds(320, 20, 230, 30);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 255));
@@ -131,6 +132,12 @@ public class Empleado extends javax.swing.JFrame {
         jLabel7.setText("GENERO");
         getContentPane().add(jLabel7);
         jLabel7.setBounds(60, 240, 80, 20);
+
+        txtCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCedulaKeyTyped(evt);
+            }
+        });
         getContentPane().add(txtCedula);
         txtCedula.setBounds(150, 80, 180, 30);
 
@@ -139,10 +146,27 @@ public class Empleado extends javax.swing.JFrame {
                 txtNomActionPerformed(evt);
             }
         });
+        txtNom.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNomKeyTyped(evt);
+            }
+        });
         getContentPane().add(txtNom);
         txtNom.setBounds(150, 120, 180, 30);
+
+        txtApe.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApeKeyTyped(evt);
+            }
+        });
         getContentPane().add(txtApe);
         txtApe.setBounds(150, 160, 180, 30);
+
+        txtTel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelKeyTyped(evt);
+            }
+        });
         getContentPane().add(txtTel);
         txtTel.setBounds(150, 200, 180, 30);
 
@@ -234,7 +258,7 @@ public class Empleado extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnLimpiar);
-        btnLimpiar.setBounds(370, 270, 140, 30);
+        btnLimpiar.setBounds(390, 270, 140, 30);
 
         cmbCargo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cmbCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "*Seleccionar*", "Cajer@", "Contad@r", "Domiciliario" }));
@@ -250,6 +274,16 @@ public class Empleado extends javax.swing.JFrame {
         });
         getContentPane().add(btnactualizar);
         btnactualizar.setBounds(640, 130, 110, 30);
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButton1.setText("LIMPIAR TABLA");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(580, 270, 120, 30);
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/org-fondo-madera-negro.jpg"))); // NOI18N
         getContentPane().add(jLabel9);
@@ -358,17 +392,6 @@ public class Empleado extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Lo sentimos, ocurrio algo inesperado, por favor vuelva a intentarlo");
         }
-      String []registrar = new String[6];
-      registrar[0]=txtCedula.getText();
-      registrar[1]=txtNom.getText();
-      registrar[2]=txtApe.getText();
-      registrar[3]=txtTel.getText();
-      registrar[4]=(String)cmbGenero.getSelectedItem();
-      registrar[5]=(String)cmbCargo.getSelectedItem();
-      modelo.addRow(registrar);
-        
-      
-        
                                                        
     }//GEN-LAST:event_btnRegistrarEmpleadoActionPerformed
 
@@ -381,6 +404,8 @@ public class Empleado extends javax.swing.JFrame {
         txtNom.setText("");
         txtApe.setText("");
         txtTel.setText("");
+        cmbGenero.setSelectedIndex(0);
+        cmbCargo.setSelectedIndex(0);
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnEliminarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEmpleadoActionPerformed
@@ -602,6 +627,51 @@ public class Empleado extends javax.swing.JFrame {
         
     }//GEN-LAST:event_tblEmpleadosMouseClicked
 
+    private void txtCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyTyped
+      char validar=evt.getKeyChar();
+      
+      if(Character.isLetter(validar)){
+          getToolkit().beep();
+          evt.consume();
+          JOptionPane.showMessageDialog(null, "Ingrese solo Numeros");
+      }
+    }//GEN-LAST:event_txtCedulaKeyTyped
+
+    private void txtNomKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomKeyTyped
+      char validar=evt.getKeyChar();
+      
+      if(Character.isDigit(validar)){
+          getToolkit().beep();
+          evt.consume();
+          JOptionPane.showMessageDialog(null, "Ingrese solo Letras");
+      }
+    }//GEN-LAST:event_txtNomKeyTyped
+
+    private void txtApeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApeKeyTyped
+       char validar=evt.getKeyChar();
+      
+      if(Character.isDigit(validar)){
+          getToolkit().beep();
+          evt.consume();
+          JOptionPane.showMessageDialog(null, "Ingrese solo Letras");
+      }
+    }//GEN-LAST:event_txtApeKeyTyped
+
+    private void txtTelKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelKeyTyped
+       char validar=evt.getKeyChar();
+      
+      if(Character.isLetter(validar)){
+          getToolkit().beep();
+          evt.consume();
+          JOptionPane.showMessageDialog(null, "Ingrese solo Numeros");
+      }
+    }//GEN-LAST:event_txtTelKeyTyped
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        modelo.setColumnCount(0);
+        modelo.setRowCount(0);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -647,6 +717,7 @@ public class Empleado extends javax.swing.JFrame {
     private javax.swing.JButton btnsalir;
     private javax.swing.JComboBox<String> cmbCargo;
     private javax.swing.JComboBox<String> cmbGenero;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
